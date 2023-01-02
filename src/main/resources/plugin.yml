@@ -1,0 +1,7 @@
+name: KeeleHub
+version: '${project.version}'
+main: dev.joeyfoxo.keelehub.KeeleHub
+api-version: 1.19
+authors: [ Joey ]
+description: Core Hub PLugin
+website: https://odionwolf.dev
