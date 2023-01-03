@@ -9,6 +9,7 @@ public final class KeeleHub extends JavaPlugin {
     @Override
     public void onEnable() {
         keeleHub = this;
+        new ListenerManager();
 
     }
 
