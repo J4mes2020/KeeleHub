@@ -1,22 +1,19 @@
 package dev.joeyfoxo.keelehub.player;
 
 import com.destroystokyo.paper.ParticleBuilder;
-import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.util.Vector;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
 
 public class DoubleJump implements Listener {
 
@@ -26,35 +23,6 @@ public class DoubleJump implements Listener {
     }
 
     Set<UUID> jumpers = new HashSet<>();
-
-    @EventHandler
-            (priority = EventPriority.HIGHEST)
-    private void join(PlayerJoinEvent event) {
-        event.getPlayer().setAllowFlight(true); // Allow flight cause we will double jump on flight attempt.
-
-        event.joinMessage(Component.text(""));
-
-    }
-
-    @EventHandler
-            (priority = EventPriority.HIGHEST)
-    public void quit(PlayerQuitEvent event) {
-        leave(event.getPlayer());
-        event.quitMessage(Component.text(""));
-    }
-
-    @EventHandler
-    public void quit(PlayerKickEvent event) {
-        leave(event.getPlayer());
-    }
-
-    private void leave(Player player) {
-        if (player == null)
-            return;
-
-        if (player.getGameMode() != GameMode.CREATIVE) //This line might cause issue's with other plugins
-            player.setAllowFlight(false);
-    }
 
     /**
      * Called when a player is trying to double jump

@@ -1,10 +1,9 @@
 package dev.joeyfoxo.keelehub.player;
 
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
 
 public class HungerCheck {
 

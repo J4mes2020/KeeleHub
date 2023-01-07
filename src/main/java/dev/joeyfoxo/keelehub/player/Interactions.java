@@ -1,23 +1,19 @@
 package dev.joeyfoxo.keelehub.player;
 
-import dev.joeyfoxo.keelehub.KeeleHub;
-import org.bukkit.entity.Player;
+import dev.joeyfoxo.keelehub.hubselector.HubSelectorGUI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
 
 public class Interactions implements Listener {
 
@@ -91,15 +87,6 @@ public class Interactions implements Listener {
     public void onDrop(PlayerAttemptPickupItemEvent event) {
 
         if (!event.getPlayer().hasPermission("kh.admin")) {
-            event.setCancelled(true);
-        }
-
-    }
-
-    @EventHandler
-    public void blockInteraction(InventoryOpenEvent event) {
-
-        if (!event.getPlayer().hasPermission("kh.admin") && event.getInventory() != event.getPlayer().getInventory()) {
             event.setCancelled(true);
         }
 
