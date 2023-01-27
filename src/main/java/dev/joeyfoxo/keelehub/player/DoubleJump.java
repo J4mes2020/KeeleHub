@@ -7,13 +7,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
 
 public class DoubleJump implements Listener {
 
@@ -48,7 +50,7 @@ public class DoubleJump implements Listener {
         player.setVelocity(player.getLocation().getDirection().multiply(1).setY(0.5));
         player.playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1.0f, -5.0f);
         jumpers.add(player.getUniqueId());
-        new ParticleBuilder(Particle.SMOKE_NORMAL).count(5).location(player.getLocation()).receivers(player);
+        new ParticleBuilder(Particle.FLAME).count(10).location(player.getLocation()).receivers(player);
     }
 
     /**
@@ -58,11 +60,15 @@ public class DoubleJump implements Listener {
      */
     @EventHandler
     public void damageFall(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player))
+        if (!(event.getEntity() instanceof Player player))
             return;
-        if (!jumpers.contains(event.getEntity().getUniqueId()) || event.getCause() != EntityDamageEvent.DamageCause.FALL)
-            return;
+
+        if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            player.teleport(player.getWorld().getSpawnLocation().toCenterLocation());
+        }
+
         event.setCancelled(true);
+
     }
 
     /**
@@ -99,8 +105,7 @@ public class DoubleJump implements Listener {
     @EventHandler
     public void switchGameMode(PlayerGameModeChangeEvent event) {
         Player player = event.getPlayer();
-        if (!player.hasPermission("doublejump.jump") ||
-                event.getNewGameMode() == GameMode.CREATIVE ||
+        if (event.getNewGameMode() == GameMode.CREATIVE ||
                 event.getNewGameMode() == GameMode.SPECTATOR)
             return;
         player.setAllowFlight(true);

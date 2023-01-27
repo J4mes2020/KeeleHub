@@ -1,19 +1,18 @@
 package dev.joeyfoxo.keelehub.player;
 
-import dev.joeyfoxo.keelehub.hubselector.HubSelectorGUI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
-import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
 
 public class Interactions implements Listener {
 
@@ -68,9 +67,8 @@ public class Interactions implements Listener {
     @EventHandler
     public void entitySpawning(CreatureSpawnEvent event) {
 
-        if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.COMMAND || event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM) {
-            event.setCancelled(true);
-        }
+        event.setCancelled(event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.COMMAND
+                && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.SPAWNER_EGG);
 
     }
 
@@ -88,6 +86,23 @@ public class Interactions implements Listener {
 
         if (!event.getPlayer().hasPermission("kh.admin")) {
             event.setCancelled(true);
+        }
+
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+
+        if (event.getClickedBlock() != null && event.getAction().isRightClick()) {
+            if (event.getClickedBlock().getType().toString().contains("DOOR")
+                    || event.getClickedBlock().getType().toString().contains("GATE")
+                    || event.getClickedBlock().getType().toString().contains("BUTTON")
+                    || event.getClickedBlock().getType().toString().contains("FRAME")
+                    || event.getClickedBlock().getType().toString().contains("CHEST")) {
+
+                event.setCancelled(true);
+
+            }
         }
 
     }

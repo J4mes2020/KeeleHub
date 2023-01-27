@@ -3,7 +3,7 @@ package dev.joeyfoxo.keelehub.player;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
 
 public class HungerCheck {
 

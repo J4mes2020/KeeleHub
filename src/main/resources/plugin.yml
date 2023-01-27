@@ -1,6 +1,6 @@
 name: KeeleHub
 version: '${project.version}'
-main: dev.joeyfoxo.keelehub.util.KeeleHub
+main: dev.joeyfoxo.keelehub.KeeleHub
 api-version: 1.19
 authors: [ Joey ]
 description: Core Hub PLugin

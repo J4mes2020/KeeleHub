@@ -4,8 +4,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
@@ -13,7 +15,6 @@ import java.util.List;
 public class HubSelectorItem {
 
     ItemStack selector = new ItemStack(Material.COMPASS);
-
     public HubSelectorItem() {
         createHubSelector();
     }
@@ -39,10 +40,5 @@ public class HubSelectorItem {
         selector.setItemMeta(meta);
 
     }
-
-    public static Boolean percentChance(double chance) {
-        return (Math.random() <= chance);
-    }
-
 
 }

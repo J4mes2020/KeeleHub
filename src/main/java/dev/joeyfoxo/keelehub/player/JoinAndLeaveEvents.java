@@ -1,8 +1,11 @@
 package dev.joeyfoxo.keelehub.player;
 
+import dev.joeyfoxo.keelehub.hubselector.HubSelectorGUI;
 import dev.joeyfoxo.keelehub.hubselector.HubSelectorItem;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,12 +13,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
-import static dev.joeyfoxo.keelehub.util.KeeleHub.keeleHub;
+import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
 
 public class JoinAndLeaveEvents implements Listener {
 
-    public JoinAndLeaveEvents() {
+    ItemStack selector;
+
+    public JoinAndLeaveEvents(ItemStack selector) {
+        this.selector = selector;
         keeleHub.getServer().getPluginManager().registerEvents(this, keeleHub);
     }
 
@@ -28,7 +35,11 @@ public class JoinAndLeaveEvents implements Listener {
         player.setAllowFlight(true); // Allow flight cause we will double jump on flight attempt.
         event.joinMessage(Component.text(""));
 
-        player.getInventory().setItem(4, new HubSelectorItem().getHubSelector());
+        player.teleport(player.getWorld().getSpawnLocation().toCenterLocation());
+
+        player.getInventory().setItem(4, selector);
+        new HubSelectorGUI(selector).addItemsToGUI();
+
 
     }
 
