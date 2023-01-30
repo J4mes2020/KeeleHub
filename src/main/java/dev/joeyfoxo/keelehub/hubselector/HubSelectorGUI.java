@@ -1,6 +1,5 @@
 package dev.joeyfoxo.keelehub.hubselector;
 
-import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import dev.joeyfoxo.keelehub.util.PlayerGUI;
@@ -20,15 +19,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static dev.joeyfoxo.keelehub.KeeleHub.keeleHub;
 
-public class HubSelectorGUI implements PlayerGUI, Listener{
+public class HubSelectorGUI implements PlayerGUI, Listener {
 
     Inventory GUI;
     ByteArrayDataOutput output;
@@ -57,58 +55,117 @@ public class HubSelectorGUI implements PlayerGUI, Listener{
 
     }
 
-    private void createSurvivalItem() {
-        List<Component> lore = new ArrayList<>();
+    private void createGUIItem(Material material, String title, TextColor color, int itemID, int ID, Component... lores) {
 
-        lore.add(Component.text()
-                .content("Version 1.8-1.19.3")
-                .color(TextColor.color(84, 84, 84))
+        GUI.setItem(ID, createItem(material, Component.text()
+                .content(title)
+                .color(color)
                 .decoration(TextDecoration.ITALIC, false)
-                .build());
-
-        lore.add(Component.text().content("").build());
-
-        lore.add(Component.text()
-                .content("A special twist on survival with custom")
-                .color(TextColor.color(134, 134, 134))
-                .decoration(TextDecoration.ITALIC, false)
-                .build());
-
-        lore.add(Component.text()
-                .content("terrain, unclaimed bases can be raided,")
-                .color(TextColor.color(134, 134, 134))
-                .decoration(TextDecoration.ITALIC, false)
-                .build());
-
-        lore.add(Component.text()
-                .content("bounties and so much more!")
-                .color(TextColor.color(134, 134, 134))
-                .decoration(TextDecoration.ITALIC, false)
-                .build());
-
-        GUI.setItem(2, createItem(Material.GRASS_BLOCK, Component.text()
-                .content("Survival")
-                .color(TextColor.color(62, 237, 61))
-                .decoration(TextDecoration.ITALIC, false)
-                .decoration(TextDecoration.BOLD, true).build(), 0, lore));
+                .decoration(TextDecoration.BOLD, true).build(), itemID, new ArrayList<>(Arrays.asList(lores))));
     }
 
     public void addItemsToGUI() {
 
-        createSurvivalItem();
+        createGUIItem(Material.GRASS_BLOCK,
+                "Survival",
+                TextColor.color(62, 237, 61),
+                0,
+                2,
+                Component.text()
+                        .content("Version 1.16-1.19.3")
+                        .color(TextColor.color(84, 84, 84))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text().content("").build(),
+                Component.text()
+                        .content("A special twist on survival with")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text()
+                        .content("custom terrain, unclaimed bases")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text()
+                        .content("can be raided, bounties and")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text()
+                        .content("so much more!")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build()
+        );
+
+        createGUIItem(Material.OAK_DOOR,
+                "Towny",
+                TextColor.color(255, 221, 0),
+                1,
+                4,
+                Component.text()
+                        .content("Version 1.16-1.19.3")
+                        .color(TextColor.color(84, 84, 84))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text().content("").build(),
+                Component.text()
+                        .content("WORK IN PROGRESS")
+                        .color(TextColor.color(141, 0, 0))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .decoration(TextDecoration.BOLD, true)
+                        .build(),
+                Component.text()
+                        .content("Classic Towny where you can")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text()
+                        .content("build bases and build an empire")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text()
+                        .content("with your friends!")
+                        .color(TextColor.color(134, 134, 134))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build());
 
 
-        GUI.setItem(4, createItem(Material.OAK_DOOR, Component.text()
-                .content("Towny")
-                .color(TextColor.color(255, 221, 0))
-                .decoration(TextDecoration.ITALIC, false)
-                .decoration(TextDecoration.BOLD, true).build(), 1));
+        createGUIItem(Material.RED_CONCRETE_POWDER,
+                "University Wars",
+                TextColor.color(255, 81, 79),
+                2,
+                6,
+                Component.text()
+                        .content("Version 1.19.3 - 1.20")
+                        .color(TextColor.color(84, 84, 84))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .build(),
+                Component.text().content("").build(),
+                Component.text()
+                        .content("WORK IN PROGRESS")
+                        .color(TextColor.color(141, 0, 0))
+                        .decoration(TextDecoration.ITALIC, false)
+                        .decoration(TextDecoration.BOLD, true)
+                        .build());
+//                Component.text()
+//                        .content("?????????????")
+//                        .color(TextColor.color(134, 134, 134))
+//                        .decoration(TextDecoration.ITALIC, false)
+//                        .build(),
+//                Component.text()
+//                        .content("?????????????")
+//                        .color(TextColor.color(134, 134, 134))
+//                        .decoration(TextDecoration.ITALIC, false)
+//                        .build(),
+//                Component.text()
+//                        .content("?????????????")
+//                        .color(TextColor.color(134, 134, 134))
+//                        .decoration(TextDecoration.ITALIC, false)
+//                        .build());
 
-        GUI.setItem(6, createItem(Material.RED_CONCRETE_POWDER, Component.text()
-                .content("University Wars")
-                .color(TextColor.color(255, 81, 79))
-                .decoration(TextDecoration.ITALIC, false)
-                .decoration(TextDecoration.BOLD, true).build(), 2));
     }
 
     @EventHandler
@@ -138,13 +195,13 @@ public class HubSelectorGUI implements PlayerGUI, Listener{
                     case 1 -> {
                         output = ByteStreams.newDataOutput();
                         output.writeUTF("Connect");
-                        output.writeUTF("advancedsurvival");
+                        output.writeUTF("towny");
                         player.sendPluginMessage(keeleHub, "BungeeCord", output.toByteArray());
                     }
                     case 2 -> {
                         output = ByteStreams.newDataOutput();
                         output.writeUTF("Connect");
-                        output.writeUTF("kitpvp");
+                        output.writeUTF("uniwars");
                         player.sendPluginMessage(keeleHub, "BungeeCord", output.toByteArray());
                     }
 

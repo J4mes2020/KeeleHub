@@ -4,10 +4,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -94,6 +98,7 @@ public class Interactions implements Listener {
     public void onInteract(PlayerInteractEvent event) {
 
         if (event.getClickedBlock() != null && event.getAction().isRightClick()) {
+
             if (event.getClickedBlock().getType().toString().contains("DOOR")
                     || event.getClickedBlock().getType().toString().contains("GATE")
                     || event.getClickedBlock().getType().toString().contains("BUTTON")
@@ -103,8 +108,41 @@ public class Interactions implements Listener {
                 event.setCancelled(true);
 
             }
+
+            if (event.getItem() != null && event.getItem().getType().toString().contains("LAVA")) {
+                event.setCancelled(true);
+            }
+
         }
 
+    }
+
+    @EventHandler
+    public void onEntityInteract(PlayerInteractEntityEvent event) {
+
+        if (!event.getPlayer().hasPermission("kh.admin")) {
+            event.setCancelled(true);
+        }
+
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event) {
+
+        if (!event.getDamager().hasPermission("kh.admin")) {
+            event.setCancelled(true);
+        }
+
+    }
+
+    @EventHandler
+    public void onIgnite(BlockIgniteEvent event) {
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onExplode(EntityExplodeEvent event) {
+        event.setCancelled(true);
     }
 
 }
